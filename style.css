@@ -22,34 +22,77 @@ main{
 *{
     font-family: f4;
 }
-header{
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    background: var(--4);
+header {
     position: fixed;
-    justify-content: center;
-    align-items: center;
-    padding: 1% 0% 1% 20%;
-    border-bottom: var(--1) 2px solid; 
-    max-height: 50px;
-}
-.hlv1{
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--4);
+    border-bottom: 2px solid var(--1);
+    box-sizing: border-box;
+    height: 60px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    gap: 16px;
 }
-header img{
-    width: 5%;
-    height: 5%;
-    border: var(--1) 1px solid;
+
+.hlv1 {
+    width: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-header a{
+
+/* Логотип — первый элемент в .hlv1 */
+.hlv1 > img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Меню */
+.hlv2 {
+    display: flex;
+    gap: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hlv2 a {
     font-family: f3;
     text-decoration: none;
     color: var(--1);
+    transition: color 0.3s;
+    white-space: nowrap;
+}
 
+.hlv2 a:hover {
+    color: var(--3);
+}
+
+/* Ссылка с телегой — последний элемент */
+.hlv1 > a {
+    display: block;
+}
+
+.hlv1 > a img {
+    height: 36px;
+    width: 36px;
+    display: block;
+    filter: invert(24%) sepia(28%) saturate(1200%) hue-rotate(170deg) brightness(90%) contrast(95%);
+    transition: filter 0.3s;
+}
+
+.hlv1 > a:hover img {
+    filter: invert(38%) sepia(30%) saturate(1000%) hue-rotate(170deg) brightness(100%) contrast(95%);
+}
+
+main {
+    padding-top: 80px;
 }
 .hlv2{
     display: flex;
