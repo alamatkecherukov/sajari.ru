@@ -22,12 +22,46 @@ main{
 *{
     font-family: f4;
 }
+header{
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background: var(--4);
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 0% 1% 20%;
+    border-bottom: var(--1) 2px solid; 
+    max-height: 50px;
+}
+.hlv1{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 16px;
+}
+header img{
+    width: 5%;
+    height: 5%;
+    border: var(--1) 1px solid;
+}
+header a{
+    font-family: f3;
+    text-decoration: none;
+    color: var(--1);
+
+}
+.hlv2{
+    display: flex;
+    gap: 20px;
+}
 .hero{
     background: var(--4);
     display: flex;
     align-items: center;
     padding: 5%;
     gap: 10%;
+    border-bottom: var(--1) 1px solid;
 }
 
 .hero video{
@@ -76,7 +110,6 @@ p{
 }
 .mlv2{
     border-top:var(--1) 2px solid;
-    border-bottom:var(--1) 2px solid;
     padding: 0% 20% 0% 0%;
     display: flex;
     flex-direction: column;
@@ -91,7 +124,6 @@ p{
     height: auto;
 }
 
-/* Мобильные — видео становится фоном */
 @media (max-width: 768px) {
     .hero {
         position: relative;
