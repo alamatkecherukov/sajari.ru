@@ -208,4 +208,10 @@ p{
     }
     main{
     }
+    header{
+        display: flex;
+        align-items: center;
+        font-size: 60%;
+    }
+    
 }
