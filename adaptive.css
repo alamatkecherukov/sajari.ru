@@ -1,0 +1,76 @@
+@media (max-width: 768px) {
+    .hero {
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0;
+        gap: 0;
+        overflow: hidden;
+        align-items: center;
+    }
+
+    .hero video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        border: none;
+    }
+
+    .herolv1 {
+        position: relative;
+        z-index: 1;
+        padding: 40px 20px;
+        color: var(--4);
+    }
+
+    .hero h1 {
+        color:  var(--4);
+    }
+
+    .herolv1 hr {
+        border-bottom-color: #fff;
+    }
+    .missia img{
+        width: 0;
+    }
+    main{
+    }
+    header{
+        display: flex;
+        align-items: center;
+        font-size: 60%;
+    }
+    .pgrid{
+        grid-template-columns: 1fr;
+    }
+    .princip{
+        padding: 2% 2%;
+    }
+    .uslugi{
+        padding: 2% 10%;
+    }
+    .cena{
+        padding: 2% 10%;
+    }
+    .kontacty{
+        padding: 2% 10% !important; 
+    }
+    .missia{
+        padding: 2% 10%;
+    }
+    .futer {
+        padding: 0%;
+    }
+    .fulv0{
+        padding: 1;
+        max-width: 90%;
+    }
+    .fulv0 p{
+        font-family: f2;
+        font-weight: 400;
+    }
+}
