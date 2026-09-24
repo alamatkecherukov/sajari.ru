@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAJARI — Заказ переплёта</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #ded3cb;
+            --paper: #f5f0e8;
+            --ink: #212325;
+            --navy: #234C6A;
+            --navy-light: #456882;
+            --line: #b8a99f;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .page { width: 100%; max-width: 820px; }
+
+        .head { text-align: center; margin-bottom: 40px; }
+
+        .head h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px;
+        }
+
+        .head .line {
+            width: 80px;
+            height: 2px;
+            background: var(--ink);
+            margin: 0 auto 16px;
+        }
+
+        .head p { font-size: 15px; color: #6b625a; font-weight: 300; }
+
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(33, 35, 37, 0.08);
+        }
+
+        .field { padding: 20px 24px; border-bottom: 1px solid var(--line); }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #6b625a;
+            margin-bottom: 8px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px 0;
+            border: none;
+            border-bottom: 1px solid var(--line);
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .field input:focus { border-bottom-color: var(--navy); }
+
+        .ql-toolbar.ql-snow {
+            background: #ebe3da;
+            border: none;
+            border-bottom: 1px solid var(--line);
+            padding: 12px 16px;
+        }
+
+        .ql-snow .ql-stroke { stroke: var(--ink); }
+        .ql-snow .ql-fill { fill: var(--ink); }
+        .ql-snow .ql-picker { color: var(--ink); }
+
+        .ql-snow .ql-picker-options {
+            background: var(--paper);
+            border: 1px solid var(--line) !important;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .ql-snow .ql-active .ql-stroke,
+        .ql-snow button:hover .ql-stroke { stroke: var(--navy); }
+        .ql-snow .ql-active .ql-fill,
+        .ql-snow button:hover .ql-fill { fill: var(--navy); }
+
+        .ql-container.ql-snow {
+            border: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--ink);
+        }
+
+        .ql-editor { padding: 40px 48px; min-height: 380px; }
+
+        .ql-editor.ql-blank::before {
+            color: #a89e94;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            left: 48px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            background: #ebe3da;
+            border-top: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #7a7068;
+            font-weight: 300;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btns { display: flex; gap: 12px; }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding: 12px 28px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border-color: var(--line);
+        }
+        .btn-ghost:hover { background: rgba(0,0,0,0.04); }
+
+        .btn-primary {
+            background: var(--navy);
+            color: var(--paper);
+            border-color: var(--navy);
+        }
+        .btn-primary:hover {
+            background: var(--navy-light);
+            border-color: var(--navy-light);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 16px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        .status.show { display: block; }
+        .status.ok { background: #d4e3d0; color: #2f4a2a; border: 1px solid #a8c4a2; }
+        .status.err { background: #ecd4d0; color: #5a2a2a; border: 1px solid #c4a2a2; }
+
+        @media (max-width: 640px) {
+            body { padding: 20px 12px; }
+            .head h1 { font-size: 32px; }
+            .ql-editor { padding: 24px 20px; font-size: 17px; }
+            .ql-editor.ql-blank::before { left: 20px; font-size: 17px; }
+            .actions { flex-direction: column; align-items: stretch; }
+            .btns { flex-direction: column; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <div class="head">
+        <h1>SAJARI</h1>
+        <div class="line"></div>
+        <p>Наберите текст, который хотите переплести</p>
+    </div>
+
+    <div class="card">
+        <div class="field">
+            <label>Ваше имя</label>
+            <input type="text" id="client-name" placeholder="Иван Иванов">
+        </div>
+
+        <div class="field">
+            <label>Телефон или Telegram</label>
+            <input type="tel" id="client-contact" placeholder="+7 999 123-45-67 или @username">
+        </div>
+
+        <div id="editor">
+            <p>Здесь будет текст вашей книги…</p>
+        </div>
+
+        <div class="actions">
+            <div class="hint">Отформатируйте текст так, как он должен выглядеть в книге</div>
+            <div class="btns">
+                <button class="btn-ghost" id="clear-btn">Очистить</button>
+                <button class="btn-primary" id="send-btn">Отправить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="status" id="status"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+<script>
+    // ===== АДРЕС ТВОЕГО СЕРВЕРА НА RENDER =====
+    const SERVER_URL = "https://sajari-bot.onrender.com/api/order";
+    // ==========================================
+
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Начните печатать…',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'align': [] }],
+                ['clean']
+            ]
+        }
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+        quill.setText('');
+        document.getElementById('client-name').value = '';
+        document.getElementById('client-contact').value = '';
+        document.getElementById('status').classList.remove('show');
+    });
+
+    const sendBtn = document.getElementById('send-btn');
+
+    sendBtn.addEventListener('click', async () => {
+        const name = document.getElementById('client-name').value.trim();
+        const contact = document.getElementById('client-contact').value.trim();
+        const text = quill.getText().trim();
+
+        if (!name) {
+            showStatus('Введите имя', 'err');
+            return;
+        }
+        if (!contact) {
+            showStatus('Введите телефон или Telegram', 'err');
+            return;
+        }
+        if (!text) {
+            showStatus('Наберите текст', 'err');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('client', `${name} — ${contact}`);
+        formData.append('content', text);
+
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Отправка…';
+
+        try {
+            const response = await fetch(SERVER_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.ok) {
+                showStatus('Заказ отправлен! Мы свяжемся с вами.', 'ok');
+                quill.setText('');
+                document.getElementById('client-name').value = '';
+                document.getElementById('client-contact').value = '';
+            } else {
+                showStatus('Ошибка: ' + (result.error || 'неизвестная'), 'err');
+            }
+        } catch (e) {
+            showStatus('Не удалось связаться с сервером. Попробуйте позже.', 'err');
+            console.error(e);
+        } finally {
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Отправить заказ';
+        }
+    });
+
+    function showStatus(message, type) {
+        const status = document.getElementById('status');
+        status.textContent = message;
+        status.className = 'status show ' + type;
+    }
+</script>
+
+</body>
+</html>
