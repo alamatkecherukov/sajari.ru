@@ -343,3 +343,24 @@ a{
     scroll-behavior: smooth;
     scroll-margin-top: 100px;
 }
+.nabor{
+    background: var(--4);
+    padding: 2% 5%;
+    border-bottom: var(--1) 1px solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.nabor a {
+    background: var(--2) ;
+    color: var(--4);
+    padding: 1%;
+    border-radius: 10px;
+    text-decoration: none;
+    border: var(--1) 1px solid;
+    max-width: 100px;
+    text-align: center;
+}
+.nabor a:hover{
+    background: var(--3);
+}
