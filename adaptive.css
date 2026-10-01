@@ -73,4 +73,36 @@
         font-family: f2;
         font-weight: 400;
     }
+    .card{
+        font-size: 80%;
+
+    }
+    .catalog{
+        grid-template-columns: 1fr;
+    }
+    .bookInfo{
+        padding: 0px;
+    }
+    .lv1book{
+        padding: 4%;
+        max-width: 90%;
+    }
+    .lv1book img{
+        width: 100%;
+        height: auto;
+    }
+    .admp1{
+        width: 90%;
+    }
+    .zagadm{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    } 
+
+
+
+
 }
