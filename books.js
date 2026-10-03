@@ -26,6 +26,8 @@ async function loadBook() {
             <p>${book.shortOpis}</p>
             <p>${book.fullOpis}</p>
             <p>Материал: ${book.material}</p>
+            <p style="font-size:60%; font-family: Arial;">Покупая чтото на нашем сайте вы соглашаетесь с <a href="privacy.html"> политикой конфедициальности</a></p>
+
 
             <input id="contact" placeholder="Телефон / tg user">
             <button id="orderBtn">Заказать</button>
